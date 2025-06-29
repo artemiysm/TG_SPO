@@ -37,17 +37,14 @@ def save_name(message):
     except (FileNotFoundError, json.JSONDecodeError):
         data = {"users": []}
 
-    # Ищем пользователя по ID (правильная проверка)
     user_exists = any(user["id"] == message.chat.id for user in data["users"])
 
     if user_exists:
-        # Обновляем имя существующего пользователя
         for user in data["users"]:
             if user["id"] == message.chat.id:
                 user["name"] = user_name
                 break
     else:
-        # Создаем нового пользователя
         new_user = {
             "id": message.chat.id,
             "name": user_name,
@@ -60,7 +57,6 @@ def save_name(message):
 
     bot.send_message(message.chat.id, "Теперь введите возраст тварь:")
     bot.register_next_step_handler(message, save_age)
-
 
 def save_age(message):
     try:
@@ -111,8 +107,10 @@ def send_data(message):
 
         response = "Зарегистрированные пользователи:\n\n" + "\n".join(users_list)
         bot.send_message(message.chat.id, response)
+
     except FileNotFoundError:
         bot.send_message(message.chat.id, "Файл данных не найден")
+
 
 @bot.message_handler(content_types=['text'])
 def handle_message(message):
@@ -122,6 +120,4 @@ def handle_message(message):
         bot.reply_to(message, 'Здесь будут ваши задания, но я в рот ебал его придумывать')
     elif message.text == "Пидор":
         bot.reply_to(message, "От пидоора слышу! ")
-
-
 bot.polling()
