@@ -111,7 +111,6 @@ def send_data(message):
 
         response = "Зарегистрированные пользователи:\n\n" + "\n".join(users_list)
         bot.send_message(message.chat.id, response)
-
     except FileNotFoundError:
         bot.send_message(message.chat.id, "Файл данных не найден")
 
