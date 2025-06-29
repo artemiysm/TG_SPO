@@ -5,3 +5,5 @@ pyvenv.cfg
 .idea
 updategit.bat
 .env
+.gitignore
+updategit.ps1
